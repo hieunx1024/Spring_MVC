@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,26 +24,34 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        String test = this.userService.HandleHello();
-        model.addAttribute("Main", test);
         List<User> arrUsers = this.userService.getAllUsers();
-        System.out.println(arrUsers);
-        List<User> arrUsers2 = this.userService.getAllUsersByEmail("3@gmail.com");
-        System.out.println(arrUsers2);
-        return "hello";
+        return "/HomePage";
     }
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
-        model.addAttribute("newUser", new User());
-        return "/admin/user/create";
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("users1", users);
+        System.out.println(">>> Check user:" + users);
+        return "/admin/user/table-user";
     }
 
-    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
-        System.out.println("run here !" + user);
-        this.userService.HandleSaveUser(user);
+    @RequestMapping("/admin/user/{id}")
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        return "admin/user/user-detail";
 
-        return "hello";
+    }
+
+    @RequestMapping("/admin/user/create")
+    public String getCreateUserPage(Model model) {
+        model.addAttribute("newUser", new User());
+        return "admin/user/create";
+    }
+
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
+    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
+        this.userService.HandleSaveUser(user);
+        return "redirect:/admin/user";
     }
 }
