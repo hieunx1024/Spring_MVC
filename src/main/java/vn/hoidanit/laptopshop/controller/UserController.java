@@ -38,6 +38,8 @@ public class UserController {
 
     @RequestMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
+        User user = this.userService.getUserById(id);
+        model.addAttribute("user", user);
         model.addAttribute("id", id);
         return "admin/user/user-detail";
 
@@ -53,5 +55,12 @@ public class UserController {
     public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
         this.userService.HandleSaveUser(user);
         return "redirect:/admin/user";
+    }
+
+    @RequestMapping("/admin/user/update/{id}")
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        User curentUser = this.userService.getUserById(id);
+        model.addAttribute("newUser", curentUser);
+        return "admin/user/update";
     }
 }

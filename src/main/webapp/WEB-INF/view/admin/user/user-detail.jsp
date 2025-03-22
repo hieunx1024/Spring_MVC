@@ -31,11 +31,13 @@
                                     Detail
                                 </div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">id</li>
-                                    <li class="list-group-item">email</li>
-                                    <li class="list-group-item">fullName</li>
+                                    <li class="list-group-item">ID: ${user.id}</li>
+                                    <li class="list-group-item">email: ${user.email}</li>
+                                    <li class="list-group-item">fullName: ${user.fullName}</li>
+                                    <li class="list-group-item">address: ${user.address}</li>
                                 </ul>
                             </div>
+                            <a href="/admin/user" class="btn btn-success mt-3">Back</a>
 
                         </div>
                     </div>
