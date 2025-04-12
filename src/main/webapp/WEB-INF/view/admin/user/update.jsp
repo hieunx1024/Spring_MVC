@@ -50,6 +50,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form:form>
+                            <a href="/admin/user" class="btn btn-success mt-3">Back</a>
                         </div>
                     </div>
                 </div>
