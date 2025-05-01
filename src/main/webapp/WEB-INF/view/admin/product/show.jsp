@@ -31,41 +31,44 @@
                                     <li class="breadcrumb-item active">Product</li>
                                 </ol>
                                 <div>Product</div>
-                                <div class="mx-auto">
+                                <div class=" mt-5">
                                     <div class="row">
-                                        <div class=" mx-auto">
-                                            <h3>Update User</h3>
-                                            <hr>
-                                            <form:form method="post" action="/admin/user/update"
-                                                modelAttribute="newUser">
-                                                <div class="mb-3" style="display: none;">
-                                                    <label class="form-label">ID:</label>
-                                                    <form:input type="text" class="form-control" path="id" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Email:</label>
-                                                    <form:input type="email" class="form-control" path="email"
-                                                        readonly="true" />
-                                                </div>
+                                        <div class="col-md-6 col-12 mx-auto">
+                                            <h3>Table Product</h3>
 
-                                                <div class="mb-3">
-                                                    <label class="form-label">FullName:</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Address:</label>
-                                                    <form:input type="text" class="form-control" path="address" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Phone:</label>
-                                                    <form:input type="text" class="form-control" path="Phone" />
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </form:form>
-                                            <a href="/admin/user" class="btn btn-success mt-3">Back</a>
+                                            <hr>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Email</th>
+                                                        <th>Full name</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="user" items="${users1}">
+                                                        <tr>
+                                                            <th>${user.id}</th>
+                                                            <td>${user.email}</td>
+                                                            <td>${user.fullName}</td>
+                                                            <td>
+                                                                <a href="/admin/user/${user.id}"
+                                                                    class="btn btn-success">View</a>
+                                                                <a href="/admin/user/update/${user.id}"
+                                                                    class="btn btn-warning" mx-2>Update</a>
+
+                                                                <a href="/admin/user/delete/${user.id}"
+                                                                    class="btn btn-danger">Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </main>
                         <jsp:include page="../layout/footer.jsp" />
                     </div>
