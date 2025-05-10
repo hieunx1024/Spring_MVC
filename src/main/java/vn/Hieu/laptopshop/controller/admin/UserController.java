@@ -5,16 +5,21 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.Hieu.laptopshop.domain.User;
+import vn.Hieu.laptopshop.service.UploadService;
 import vn.Hieu.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
     private final UserService userService;
+    private final UploadService uploadService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
+
     }
 
     @RequestMapping("/")
@@ -40,14 +45,17 @@ public class UserController {
         return "admin/user/detail";
     }
 
-    @RequestMapping("/admin/user/create")
+    @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
+    @PostMapping(value = "/admin/user/create")
+    public String createUserPage(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("imgFile") MultipartFile file) {
+        // String a = this.servletContext.getRealPath("");
+        String avatar = this.uploadService.HandleSaveUpLoadFile(file, "avatar");
         this.userService.HandleSaveUser(user);
         return "redirect:/admin/user";
     }

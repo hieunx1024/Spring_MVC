@@ -37,7 +37,7 @@
                                             <h3>Create User</h3>
                                             <hr>
                                             <form:form method="post" action="/admin/user/create"
-                                                modelAttribute="newUser">
+                                                modelAttribute="newUser" enctype="multipart/form-data" class="row">
 
                                                 <div class="mb-3 col-md-6 col-12">
                                                     <label class="form-label">Email</label>
@@ -72,17 +72,18 @@
 
                                                 <div class="mb-3 col-md-6 col-12">
                                                     <label class="form-label">Role:</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="ADMIN">ADMIN</option>
-                                                        <option value="USER">USER</option>
-                                                    </select>
+                                                    <form:select class="form-select" path="role.name">
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
+                                                    </form:select>
+
                                                 </div>
 
                                                 <div class="mb-3 col-md-6 col-12">
                                                     <label for="avatarFile" class="form-label">Default file input
                                                         example</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jepg">
+                                                        accept=".png, .jpg, .jepg" name="imgFile" multiple>
                                                 </div>
 
                                                 <div class="col-12 mb-3">
