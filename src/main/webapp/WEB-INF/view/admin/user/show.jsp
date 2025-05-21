@@ -42,6 +42,7 @@
                                                         <th>ID</th>
                                                         <th>Email</th>
                                                         <th>Họ tên</th>
+                                                        <th>Role</th>
                                                         <th>Thao tác</th>
                                                     </tr>
                                                 </thead>
@@ -51,6 +52,7 @@
                                                             <td>${user.id}</td>
                                                             <td>${user.email}</td>
                                                             <td>${user.fullName}</td>
+                                                            <td>${user.role.name}</td>
                                                             <td>
                                                                 <a href="/admin/user/view/${user.id}"
                                                                     class="btn btn-success btn-sm">Xem</a>

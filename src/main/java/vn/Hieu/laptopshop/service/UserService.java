@@ -20,8 +20,7 @@ public class UserService {
     }
 
     public User HandleSaveUser(User user) {
-        User hieu = this.userRepository.save(user);
-        return hieu;
+        return this.userRepository.save(user);
     }
 
     public List<User> getAllUsersByEmail(String email) {
