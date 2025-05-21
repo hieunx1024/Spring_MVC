@@ -2,11 +2,14 @@ package vn.Hieu.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import vn.Hieu.laptopshop.domain.Role;
 import vn.Hieu.laptopshop.domain.User;
 import vn.Hieu.laptopshop.service.UploadService;
 import vn.Hieu.laptopshop.service.UserService;
@@ -15,11 +18,12 @@ import vn.Hieu.laptopshop.service.UserService;
 public class UserController {
     private final UserService userService;
     private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, UploadService uploadService) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
-
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping("/")
@@ -36,7 +40,6 @@ public class UserController {
         return "/admin/user/show";
     }
 
-    // ✅ Đổi đường dẫn để không bị nhầm với "update", "create"
     @RequestMapping("/admin/user/view/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);
@@ -54,8 +57,14 @@ public class UserController {
     @PostMapping(value = "/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") User user,
             @RequestParam("imgFile") MultipartFile file) {
-        // String a = this.servletContext.getRealPath("");
         String avatar = this.uploadService.HandleSaveUpLoadFile(file, "avatar");
+        String hashpassword = this.passwordEncoder.encode(user.getPassword());
+        user.setAvatar(avatar);
+        user.setPassword(hashpassword);
+        System.out.println("mat khau la: " + hashpassword);
+        // Truy vấn role theo id đã bind
+        Role role = userService.getRoleById(user.getRole().getId());
+        user.setRole(role); // Gán role thực thể vào User
         this.userService.HandleSaveUser(user);
         return "redirect:/admin/user";
     }

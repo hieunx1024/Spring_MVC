@@ -72,11 +72,10 @@
 
                                                 <div class="mb-3 col-md-6 col-12">
                                                     <label class="form-label">Role:</label>
-                                                    <form:select class="form-select" path="role.name">
-                                                        <form:option value="ADMIN">ADMIN</form:option>
-                                                        <form:option value="USER">USER</form:option>
+                                                    <form:select class="form-select" path="role.id">
+                                                        <form:option value="1">ADMIN</form:option>
+                                                        <form:option value="2">USER</form:option>
                                                     </form:select>
-
                                                 </div>
 
                                                 <div class="mb-3 col-md-6 col-12">
