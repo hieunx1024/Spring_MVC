@@ -12,7 +12,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>Dashboard - Hỏi Dân IT</title>
+                <title>Dashboard - Product</title>
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -35,30 +35,33 @@
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h3>Table Product</h3>
-
+                                            <a href="/admin/user/create" class="btn btn-primary mb-3">Tạo người dùng
+                                                mới</a>
                                             <hr>
                                             <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Email</th>
-                                                        <th>Full name</th>
+                                                        <th>Name</th>
+                                                        <th>Price</th>
+                                                        <th>Factory</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="user" items="${users1}">
+                                                    <c:forEach var="product" items="${products}">
                                                         <tr>
-                                                            <th>${user.id}</th>
-                                                            <td>${user.email}</td>
-                                                            <td>${user.fullName}</td>
+                                                            <th>${product.id}</th>
+                                                            <td>${product.name}</td>
+                                                            <td>${product.price}</td>
+                                                            <td>${product.factory}</td>
                                                             <td>
-                                                                <a href="/admin/user/${user.id}"
+                                                                <a href="/admin/product/${product.id}"
                                                                     class="btn btn-success">View</a>
-                                                                <a href="/admin/user/update/${user.id}"
+                                                                <a href="/admin/product/update/${product.id}"
                                                                     class="btn btn-warning" mx-2>Update</a>
 
-                                                                <a href="/admin/user/delete/${user.id}"
+                                                                <a href="/admin/product/delete/${product.id}"
                                                                     class="btn btn-danger">Delete</a>
                                                             </td>
                                                         </tr>
