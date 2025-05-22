@@ -7,19 +7,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import vn.Hieu.laptopshop.domain.Product;
-import vn.Hieu.laptopshop.domain.Role;
-import vn.Hieu.laptopshop.domain.User;
+import vn.Hieu.laptopshop.service.ProductService;
 
 @Controller
 public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/admin/product")
     public String getProductPage(Model model) {
-        List<Product> products = new ArrayList<>();
+        List<Product> products = this.productService.getAllProducts();
         model.addAttribute("products", products);
         return "/admin/product/show";
     }
@@ -30,6 +37,12 @@ public class ProductController {
         return "admin/product/create";
     }
 
+    @PostMapping("/admin/product/create")
+    public String postCreateProduct(Model model, @ModelAttribute("newProduct") Product product) {
+        this.productService.HandleSaveProduct(product);
+        return "redirect:/admin/product";
+    }
+
     // @PostMapping(value = "/admin/product/create")
     // public String createUserPage(Model model, @ModelAttribute("newUser") User
     // user,
@@ -38,4 +51,19 @@ public class ProductController {
     // this.userService.HandleSaveUser(user);
     // return "redirect:/admin/user";
     // }
+
+    @GetMapping("/admin/product/delete/{id}")
+    public String getDeleteProduct(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        model.addAttribute("newProduct", new Product());
+        return "admin/product/delete";
+    }
+
+    @PostMapping("/admin/product/delete")
+    public String postDeleteProduct(@ModelAttribute("newProduct") Product product) {
+        this.productService.deleteProduct(product.getId());
+        return "redirect:/admin/product";
+
+    }
+
 }

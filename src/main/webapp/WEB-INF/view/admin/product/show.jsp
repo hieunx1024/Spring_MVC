@@ -35,7 +35,7 @@
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h3>Table Product</h3>
-                                            <a href="/admin/user/create" class="btn btn-primary mb-3">Tạo người dùng
+                                            <a href="/admin/product/create" class="btn btn-primary mb-3">Tạo sản phẩm
                                                 mới</a>
                                             <hr>
                                             <table class="table">
