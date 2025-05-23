@@ -52,17 +52,43 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
-                                                        <label class="form-label">Factory</label>
-                                                        <form:input type="text" class="form-control" path="factory" />
+                                                        <label class="form-label">Long Description</label>
+                                                        <form:input type="text" class="form-control"
+                                                            path="detailDesc" />
                                                     </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <div class="mb-3 col-md-6 col-12">
+                                                        <label class="form-label">Short Description</label>
+                                                        <form:input type="text" class="form-control" path="shortDesc" />
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <div class="mb-3 col-md-6 col-12">
+                                                        <label class="form-label">Quantity</label>
+                                                        <form:input type="text" class="form-control" path="quantity" />
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 col-md-6 col-12">
+                                                    <label class="form-label">Factory</label>
+                                                    <form:select class="form-select" path="factory">
+                                                        <form:option value="MSI">MSI</form:option>
+                                                        <form:option value="APPLE">APPLE</form:option>
+                                                        <form:option value="ASUS">ASUS</form:option>
+                                                        <form:option value="ACER">ACER</form:option>
+                                                        <form:option value="LENOVO">LENOVO</form:option>
+                                                        <form:option value="DELL">DELL</form:option>
+                                                        <form:option value="HP">HP</form:option>
+                                                    </form:select>
                                                 </div>
 
 
 
 
+
                                                 <div class="mb-3 col-md-6 col-12">
-                                                    <label for="avatarFile" class="form-label">Default file input
-                                                        example</label>
+                                                    <label for="avatarFile" class="form-label">Chọn hình ảnh sản
+                                                        phẩm</label>
                                                     <input class="form-control" type="file" id="avatarFile"
                                                         accept=".png, .jpg, .jepg" name="imgFile" multiple>
                                                 </div>

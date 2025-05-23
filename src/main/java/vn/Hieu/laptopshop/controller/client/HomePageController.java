@@ -13,7 +13,7 @@ import vn.Hieu.laptopshop.domain.User;
 public class HomePageController {
     @GetMapping("/")
     public String getHomePage() {
-        return "client/homepage/show"; // dẫn đến show.jsp
+        return "client/homepage/show";
     }
 
 }
