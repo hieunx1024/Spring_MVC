@@ -44,22 +44,29 @@
                                                     <div class="card-header">
                                                         Detail
                                                     </div>
-                                                    <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item">ID: ${product.id}</li>
-                                                        <li class="list-group-item">Name: ${product.name}</li>
-                                                        <li class="list-group-item">
-                                                            Price:
-                                                            <fmt:formatNumber value="${product.price}" type="number"
-                                                                groupingUsed="true" /> VND
-                                                        </li>
-                                                        <li class="list-group-item">Factory: ${product.factory}</li>
-                                                    </ul>
-                                                </div>
-                                                <a href="/admin/product" class="btn btn-success mt-3">Back</a>
+                                                    <div class="card" style="width: 100%">
+                                                        <img class="card-img-top" src="/images/product/${product.image}"
+                                                            alt="Card image cap">
 
+                                                        <div class="card-header">
+                                                            Product infomation
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item">ID: ${product.id}</li>
+                                                                <li class="list-group-item">Name: ${product.name}</li>
+                                                                <li class="list-group-item">
+                                                                    Price:
+                                                                    <fmt:formatNumber value="${product.price}"
+                                                                        type="number" groupingUsed="true" /> VND
+                                                                </li>
+                                                                <li class="list-group-item">Factory: ${product.factory}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <a href="/admin/product" class="btn btn-success mt-3">Back</a>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
                             </main>
                             <jsp:include page="../layout/footer.jsp" />
                         </div>

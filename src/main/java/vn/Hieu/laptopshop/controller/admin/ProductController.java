@@ -17,14 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.Hieu.laptopshop.domain.Product;
 import vn.Hieu.laptopshop.service.ProductService;
+import vn.Hieu.laptopshop.service.UploadService;
 
 @Controller
 public class ProductController {
 
     private final ProductService productService;
+    private final UploadService uploadService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, UploadService uploadService) {
         this.productService = productService;
+        this.uploadService = uploadService;
     }
 
     @GetMapping("/admin/product")
@@ -41,19 +44,14 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/create")
-    public String postCreateProduct(Model model, @ModelAttribute("newProduct") Product product) {
+    public String postCreateProduct(Model model, @ModelAttribute("newProduct") Product product,
+            @RequestParam("productImg") MultipartFile file) {
+        String productImg = this.uploadService.HandleSaveUpLoadFile(file, "product");
+        product.setImage(productImg);
+        System.out.println(product.getImage());
         this.productService.HandleSaveProduct(product);
         return "redirect:/admin/product";
     }
-
-    // @PostMapping(value = "/admin/product/create")
-    // public String createUserPage(Model model, @ModelAttribute("newUser") User
-    // user,
-    // @RequestParam("imgFile") MultipartFile file) {
-    // String avatar = this.uploadService.HandleSaveUpLoadFile(file, "avatar");
-    // this.userService.HandleSaveUser(user);
-    // return "redirect:/admin/user";
-    // }
 
     @GetMapping("/admin/product/view/{id}")
     public String getProductDetail(@PathVariable("id") long id, Model model) {
@@ -69,14 +67,19 @@ public class ProductController {
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProduct(Model model, @PathVariable long id) {
-        Optional<Product> curentProduct = this.productService.getProductById(id);
+        Product currentProduct = this.productService.getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + id));
+        model.addAttribute("newProduct", currentProduct);
         return "admin/product/update";
     }
 
     @PostMapping("/admin/product/update")
-    public String postUpdateProduct(@ModelAttribute("newProduct") Product product) {
+    public String postUpdateProduct(@ModelAttribute("newProduct") Product product,
+            @RequestParam("productImg") MultipartFile file) {
+        String productImg = this.uploadService.HandleSaveUpLoadFile(file, "product");
+        product.setImage(productImg);
         this.productService.HandleSaveProduct(product);
-        return "redirect:/admin/product/show";
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/admin/product/delete/{id}")

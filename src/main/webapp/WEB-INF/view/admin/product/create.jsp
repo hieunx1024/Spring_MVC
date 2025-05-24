@@ -47,12 +47,12 @@
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
                                                         <label class="form-label">Price</label>
-                                                        <form:input type="text" class="form-control" path="price" />
+                                                        <form:input type="number" class="form-control" path="price" />
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
-                                                        <label class="form-label">Long Description</label>
+                                                        <label class="form-label">Detail Description</label>
                                                         <form:input type="text" class="form-control"
                                                             path="detailDesc" />
                                                     </div>
@@ -66,7 +66,8 @@
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
                                                         <label class="form-label">Quantity</label>
-                                                        <form:input type="text" class="form-control" path="quantity" />
+                                                        <form:input type="number" class="form-control"
+                                                            path="quantity" />
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 col-md-6 col-12">
@@ -81,21 +82,24 @@
                                                         <form:option value="HP">HP</form:option>
                                                     </form:select>
                                                 </div>
-
-
-
-
+                                                <div class="mb-3 col-md-6 col-12">
+                                                    <label class="form-label">Target</label>
+                                                    <form:select class="form-select" path="target">
+                                                        <form:option value="gaming">Gaming</form:option>
+                                                        <form:option value="ultrabook">UltraBook</form:option>
+                                                    </form:select>
+                                                </div>
 
                                                 <div class="mb-3 col-md-6 col-12">
-                                                    <label for="avatarFile" class="form-label">Chọn hình ảnh sản
+                                                    <label for="productImg" class="form-label">Chọn hình ảnh sản
                                                         phẩm</label>
-                                                    <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jepg" name="imgFile" multiple>
+                                                    <input class="form-control" type="file" id="productImg"
+                                                        accept=".png, .jpg, .jepg" name="productImg" multiple>
                                                 </div>
 
                                                 <div class="col-12 mb-3">
-                                                    <img style="max-height: 250;display: none;" alt="avatar preview"
-                                                        id="avatarPreview" />
+                                                    <img style="max-height: 250;display: none;" alt="product preview"
+                                                        id="productPreview" />
                                                 </div>
 
                                                 <div class="mb-5 col-12">
