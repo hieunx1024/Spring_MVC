@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
 import vn.Hieu.laptopshop.domain.Product;
 import vn.Hieu.laptopshop.service.ProductService;
 import vn.Hieu.laptopshop.service.UploadService;
@@ -44,8 +48,18 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/create")
-    public String postCreateProduct(Model model, @ModelAttribute("newProduct") Product product,
+    public String postCreateProduct(Model model, @ModelAttribute("newProduct") @Valid Product product,
+            BindingResult newProductBindingResult,
             @RequestParam("productImg") MultipartFile file) {
+
+        List<FieldError> errors = newProductBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>>>>>" + error.getField() + "  -" + error.getDefaultMessage());
+            // validate
+            if (newProductBindingResult.hasErrors()) {
+                return "/admin/product/create";
+            }
+        }
         String productImg = this.uploadService.HandleSaveUpLoadFile(file, "product");
         product.setImage(productImg);
         System.out.println(product.getImage());
@@ -74,10 +88,27 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/update")
-    public String postUpdateProduct(@ModelAttribute("newProduct") Product product,
+    public String postUpdateProduct(@ModelAttribute("newProduct") @Valid Product product,
+            BindingResult newProductBindingResult,
             @RequestParam("productImg") MultipartFile file) {
-        String productImg = this.uploadService.HandleSaveUpLoadFile(file, "product");
-        product.setImage(productImg);
+
+        List<FieldError> errors = newProductBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>>>>>" + error.getField() + "  -" + error.getDefaultMessage());
+            // validate
+            if (newProductBindingResult.hasErrors()) {
+                return "/admin/product/create";
+            }
+        }
+
+        if (product != null) {
+            // update new img
+            if (!file.isEmpty()) {
+                String productImg = this.uploadService.HandleSaveUpLoadFile(file, "product");
+                product.setImage(productImg);
+            }
+        }
+
         this.productService.HandleSaveProduct(product);
         return "redirect:/admin/product";
     }

@@ -6,9 +6,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
 import vn.Hieu.laptopshop.domain.Role;
 import vn.Hieu.laptopshop.domain.User;
 import vn.Hieu.laptopshop.service.UploadService;
@@ -49,15 +52,27 @@ public class UserController {
     }
 
     @PostMapping(value = "/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user,
+    public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User user,
+            BindingResult newUserBindingResult,
             @RequestParam("imgFile") MultipartFile file) {
+
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>>>>>" + error.getField() + "  -" + error.getDefaultMessage());
+
+            // validate
+            if (newUserBindingResult.hasErrors()) {
+                return "/admin/user/create";
+            }
+        }
+
         String avatar = this.uploadService.HandleSaveUpLoadFile(file, "avatar");
         String hashpassword = this.passwordEncoder.encode(user.getPassword());
         user.setAvatar(avatar);
         user.setPassword(hashpassword);
         System.out.println("mat khau la: " + hashpassword);
         // Truy vấn role theo id đã bind
-        Role role = userService.getRoleById(user.getRole().getId());
+        Role role = userService.getRoleByName(user.getRole().getName());
         user.setRole(role); // Gán role thực thể vào User
         this.userService.HandleSaveUser(user);
         return "redirect:/admin/user";

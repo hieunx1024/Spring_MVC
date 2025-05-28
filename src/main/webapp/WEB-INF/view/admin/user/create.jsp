@@ -15,6 +15,16 @@
                 <title>Dashboard - Product</title>
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/css/styles.css" rel="stylesheet" />
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -39,24 +49,37 @@
                                             <form:form method="post" action="/admin/user/create"
                                                 modelAttribute="newUser" enctype="multipart/form-data" class="row">
 
-                                                <div class="mb-3 col-md-6 col-12">
-                                                    <label class="form-label">Email</label>
-                                                    <form:input type="email" class="form-control" path="email" />
+                                                <div class="mb-3">
+                                                    <div class="mb-3 col-md-6 col-12">
+                                                        <label class="form-label">Email</label>
+                                                        <form:input type="email" cssClass="form-control"
+                                                            cssErrorClass="form-control is-invalid" path="email" />
+                                                        <form:errors path="email" cssClass="invalid-feedback" />
+                                                    </div>
                                                 </div>
+
 
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
                                                         <label class="form-label">Password</label>
-                                                        <form:input type="password" class="form-control"
-                                                            path="password" />
+                                                        <form:input path="password" type="password"
+                                                            cssClass="form-control"
+                                                            cssErrorClass="form-control is-invalid" />
+                                                        <form:errors path="password" cssClass="invalid-feedback" />
                                                     </div>
                                                 </div>
+
+
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
                                                         <label class="form-label">FullName</label>
-                                                        <form:input type="text" class="form-control" path="fullName" />
+                                                        <form:input type="text" cssClass="form-control"
+                                                            cssErrorClass="form-control is-invalid" path="fullName" />
+                                                        <form:errors path="fullName" cssClass="invalid-feedback" />
                                                     </div>
                                                 </div>
+
+
                                                 <div class="mb-3">
                                                     <div class="mb-3 col-md-6 col-12">
                                                         <label class="form-label">Address</label>
@@ -70,17 +93,16 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="mb-3 col-md-6 col-12">
+                                                <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Role:</label>
-                                                    <form:select class="form-select" path="role.id">
-                                                        <form:option value="1">ADMIN</form:option>
-                                                        <form:option value="2">USER</form:option>
+                                                    <form:select class="form-select" path="role.name">
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
                                                     </form:select>
                                                 </div>
 
                                                 <div class="mb-3 col-md-6 col-12">
-                                                    <label for="avatarFile" class="form-label">Default file input
-                                                        example</label>
+                                                    <label for="avatarFile" class="form-label">Chọn ảnh đại diện</label>
                                                     <input class="form-control" type="file" id="avatarFile"
                                                         accept=".png, .jpg, .jepg" name="imgFile" multiple>
                                                 </div>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import vn.Hieu.laptopshop.domain.Role;
 import vn.Hieu.laptopshop.domain.User;
+import vn.Hieu.laptopshop.domain.dto.RegisterDTO;
 import vn.Hieu.laptopshop.repository.RoleRepository;
 import vn.Hieu.laptopshop.repository.UserRepository;
 
@@ -39,9 +40,17 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public Role getRoleById(Long id) {
-        return roleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Role không tồn tại với ID: " + id));
+    public Role getRoleByName(String name) {
+        return this.roleRepository.findByName(name);
+    }
+
+    // mapper
+    public User registerDTOtoUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        return user;
     }
 
 }
