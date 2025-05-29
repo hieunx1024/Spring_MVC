@@ -23,7 +23,7 @@ public class OrderController {
     public String getDashboard(Model model) {
         List<Order> oders = this.orderService.FetchAllOrder();
         model.addAttribute("orders", oders);
-        return "/admin/order/show";
+        return "admin/order/show";
     }
 
     @GetMapping("/admin/oder/view/id")
