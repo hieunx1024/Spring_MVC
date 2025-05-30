@@ -37,7 +37,14 @@
 
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
                     rel="stylesheet">
-
+                <script>
+                    window.addEventListener('load', function () {
+                        const spinner = document.getElementById('spinner');
+                        if (spinner) {
+                            spinner.classList.remove('show');
+                        }
+                    });
+                </script>
             </head>
 
             <body>
@@ -85,7 +92,9 @@
                                                         <div class="rounded position-relative fruite-item">
                                                             <div class="fruite-img">
                                                                 <img src="/images/product/${product.image}"
-                                                                    class="img-fluid w-100 rounded-top" alt="">
+                                                                    loading="lazy" class="img-fluid w-100 rounded-top"
+                                                                    style="width: 200px; height: 200px; object-fit: cover; display: block; margin: 0 auto;"
+                                                                    alt="">
                                                             </div>
                                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                                 style="top: 10px; left: 10px;">Laptop</div>

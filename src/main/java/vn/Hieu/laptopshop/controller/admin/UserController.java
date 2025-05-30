@@ -87,6 +87,22 @@ public class UserController {
 
     @PostMapping("/admin/user/update")
     public String postUpdateUser(@ModelAttribute("newUser") User user) {
+        User existingUser = userService.getUserById(user.getId());
+
+        // Cập nhật password nếu không nhập gì
+        if (user.getPassword() == null || user.getPassword().isBlank()) {
+            user.setPassword(existingUser.getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        // Cập nhật role nếu không nhập gì
+        if (user.getRole() == null || user.getRole().getName() == null || user.getRole().getName().isBlank()) {
+            user.setRole(existingUser.getRole());
+        } else {
+            Role role = userService.getRoleByName(user.getRole().getName());
+            user.setRole(role);
+        }
+
         this.userService.HandleSaveUser(user); // hoặc gọi updateUser nếu bạn tách riêng việc update
         return "redirect:/admin/user";
     }
