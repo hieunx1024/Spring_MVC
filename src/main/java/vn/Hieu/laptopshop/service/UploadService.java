@@ -1,10 +1,8 @@
 package vn.Hieu.laptopshop.service;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,38 +17,36 @@ public class UploadService {
 
     }
 
-   public String HandleSaveUpLoadFile(MultipartFile file, String targetFolder) {
-    if (file == null || file.isEmpty()) {
-        return "";
-    }
-    
-    String rootPath = this.servletContext.getRealPath("/resources/images");
-    String finalName = "";
-    try {
-        byte[] bytes = file.getBytes();
-
-        File dir = new File(rootPath + File.separator + targetFolder);
-        if (!dir.exists())
-            dir.mkdirs();
-
-        // Create the file on server with sanitized name
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename != null) {
-            finalName = System.currentTimeMillis() + "-" + originalFilename.replace(" ", "_");
-            File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
-
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
-            
-            return finalName;
+    public String HandleSaveUpLoadFile(MultipartFile file, String targetFolder) {
+        if (file == null || file.isEmpty()) {
+            return "";
         }
-        return "";
-    } catch (IOException e) {
-        e.printStackTrace();
-        return "";
+
+        String rootPath = this.servletContext.getRealPath("/resources/images");
+        String finalName = "";
+        try {
+            File dir = new File(rootPath + File.separator + targetFolder);
+            if (!dir.exists())
+                dir.mkdirs();
+
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename != null) {
+                finalName = System.currentTimeMillis() + "-" + originalFilename.replace(" ", "_");
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
+
+                // ✅ Resize ảnh trước khi lưu (ví dụ 600x600)
+                Thumbnails.of(file.getInputStream())
+                        .size(600, 600) // chỉnh lại nếu muốn ảnh lớn hơn
+                        .outputQuality(0.8f) // nén ~80% chất lượng
+                        .toFile(serverFile);
+
+                return finalName;
+            }
+            return "";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
-}
-       
+
 }

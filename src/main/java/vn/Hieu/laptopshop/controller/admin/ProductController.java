@@ -1,11 +1,8 @@
 package vn.Hieu.laptopshop.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -107,6 +103,7 @@ public class ProductController {
                 String productImg = this.uploadService.HandleSaveUpLoadFile(file, "product");
                 product.setImage(productImg);
             }
+
         }
 
         this.productService.HandleSaveProduct(product);

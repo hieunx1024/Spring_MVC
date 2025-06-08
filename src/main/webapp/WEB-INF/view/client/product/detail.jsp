@@ -89,20 +89,15 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <!-- <form action="/add-product-from-view-detail" method="post"
-                                                modelAttribute="product"> -->
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                        <input class="form-control d-none" type="text" value="${product.id}"
-                                            name="id" />
+                                        <form action="/add-product-to-cart/${product.id}" method="POST">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-                                        <input class="form-control d-none" type="text" name="quantity"
-                                            id="cartDetails0.quantity" value="1" />
-                                        <button data-product-id="${product.id}"
-                                            class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                class="fa fa-shopping-bag me-2 text-primary"></i>
-                                            Add to cart
-                                        </button>
-                                        <!-- </form> -->
+                                            <button data-product-id="${product.id}"
+                                                class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                                <i class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                Add to cart
+                                            </button>
+                                        </form>
 
                                     </div>
                                     <div class="col-lg-12">
@@ -173,7 +168,7 @@
                         </div>
 
                     </div>
-                </div>le Product End -->
+                </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
                 <script src="/client/lib/easing/easing.min.js"></script>

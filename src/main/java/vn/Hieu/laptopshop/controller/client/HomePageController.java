@@ -44,7 +44,6 @@ public class HomePageController {
     @PostMapping("/register")
     public String postregister(@ModelAttribute("registerUser") RegisterDTO registerDTO) {
         User user = this.userService.registerDTOtoUser(registerDTO);
-
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName("USER"));
@@ -63,7 +62,5 @@ public class HomePageController {
 
         return "client/auth/deny";
     }
-    // @GetMapping("/logout")
-    // public
 
 }

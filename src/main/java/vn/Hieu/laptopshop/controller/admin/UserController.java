@@ -2,7 +2,6 @@ package vn.Hieu.laptopshop.controller.admin;
 
 import java.util.List;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +31,7 @@ public class UserController {
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
-        model.addAttribute("users1", users);
-        System.out.println(">>> Check user:" + users);
+        model.addAttribute("users", users);
         return "admin/user/show";
     }
 
@@ -70,7 +68,6 @@ public class UserController {
         String hashpassword = this.passwordEncoder.encode(user.getPassword());
         user.setAvatar(avatar);
         user.setPassword(hashpassword);
-        System.out.println("mat khau la: " + hashpassword);
         // Truy vấn role theo id đã bind
         Role role = userService.getRoleByName(user.getRole().getName());
         user.setRole(role); // Gán role thực thể vào User

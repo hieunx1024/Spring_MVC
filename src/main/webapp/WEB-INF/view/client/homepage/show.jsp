@@ -114,19 +114,19 @@
                                                                         <fmt:formatNumber type="number"
                                                                             value="${product.price}" /> VND
                                                                     </p>
-                                                                    <!-- <form action="/add-product-to-cart/${product.id}"
-                                                                        method="post">
+                                                                    <form action="/add-product-to-cart/${product.id}"
+                                                                        method="POST">
                                                                         <input type="hidden"
                                                                             name="${_csrf.parameterName}"
-                                                                            value="${_csrf.token}" /> -->
+                                                                            value="${_csrf.token}" />
 
-                                                                    <button data-product-id="${product.id}"
-                                                                        class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
-                                                                        <i
-                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to cart
-                                                                    </button>
-                                                                    <!-- </form> -->
+                                                                        <button data-product-id="${product.id}"
+                                                                            class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                                                            <i
+                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                            Add to cart
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
