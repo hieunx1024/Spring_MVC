@@ -1,5 +1,8 @@
 package vn.Hieu.laptopshop.controller.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import vn.Hieu.laptopshop.domain.Cart;
+import vn.Hieu.laptopshop.domain.CartDetail;
 import vn.Hieu.laptopshop.domain.Product;
+import vn.Hieu.laptopshop.domain.User;
 import vn.Hieu.laptopshop.service.ProductService;
 
 @Controller
@@ -33,8 +39,40 @@ public class ItemController {
         HttpSession session = request.getSession(false);
         long productId = id;
         String email = (String) session.getAttribute("email");
-        this.productService.addProductToCart(email, productId);
+        this.productService.addProductToCart(email, productId, session);
+
         return "redirect:/";
+    }
+
+    @GetMapping("/cart")
+    public String getCartPage(Model model, HttpServletRequest request) {
+        User currentUser = new User();
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        Cart cart = this.productService.fetchByUser(currentUser);
+
+        // kiểm tra nếu cart null thì tạo một danh sách mới
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
+
+        double totalPrice = 0;
+        for (CartDetail cd : cartDetails) {
+            totalPrice += cd.getPrice() * cd.getQuantity();
+        }
+
+        model.addAttribute("cartDetails", cartDetails);
+        model.addAttribute("totalPrice", totalPrice);
+
+        model.addAttribute("cart", cart);
+
+        return "client/cart/show";
+
+    }
+
+    @GetMapping("/thanks")
+    public String getThanksPage() {
+        return "client/cart/thanks";
     }
 
 }

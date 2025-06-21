@@ -16,18 +16,22 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    // method lưu đơn đặt hàng
     public Order HandleSaveOrder(Order order) {
         return this.orderRepository.save(order);
     }
 
+    // method lấy danh sách tất cả các đơn hàng
     public List<Order> FetchAllOrder() {
         return this.orderRepository.findAll();
     }
 
+    // method tìm đơn hàng theo id
     public Optional<Order> FetchOrderById(Long id) {
         return this.orderRepository.findById(id);
     }
 
+    // method xóa đơn hàng
     public void deleteOrder(Long id) {
         this.orderRepository.deleteById(id);
     }

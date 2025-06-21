@@ -22,7 +22,6 @@ import vn.Hieu.laptopshop.service.UserService;
 
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
-    @Autowired
     private UserService userService;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -59,7 +58,15 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("id", user.getId());
+
+            if (user.getCart() != null) {
+                int sum = user.getCart().getSum();
+                session.setAttribute("sum", sum);
+            } else {
+                session.setAttribute("sum", 0); // Giỏ hàng rỗng
+            }
         }
+
     }
 
     @Override

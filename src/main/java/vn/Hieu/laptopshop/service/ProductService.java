@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import vn.Hieu.laptopshop.domain.Cart;
 import vn.Hieu.laptopshop.domain.CartDetail;
 import vn.Hieu.laptopshop.domain.Product;
@@ -28,23 +29,28 @@ public class ProductService {
         this.userService = userService;
     }
 
+    // method lưu sản phẩm
     public Product HandleSaveProduct(Product product) {
         return this.productRepository.save(product);
     }
 
+    // method lấy tất cả sản phâmr có trong database
     public List<Product> getAllProducts() {
         return this.productRepository.findAll();
     }
 
+    // method tìm kiếm sản phẩm theo id
     public Optional<Product> getProductById(Long id) {
         return this.productRepository.findById(id);
     }
 
+    // method xóa sản phẩm theo id
     public void deleteProduct(long id) {
         this.productRepository.deleteById(id);
     }
 
-    public void addProductToCart(String email, long ProductId) {
+    // method thêm sản phẩm vào giỏ hàng
+    public void addProductToCart(String email, long ProductId, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         // check user có cart chưa ? Nếu chưa có thì tạo mới
         if (user != null) {
@@ -53,7 +59,7 @@ public class ProductService {
                 // Tạo mới cart
                 Cart otheCart = new Cart();
                 otheCart.setUser(user);
-                otheCart.setSum(1);
+                otheCart.setSum(0);
                 this.cartRepository.save(otheCart);
             }
             // save cartDetail
@@ -62,15 +68,35 @@ public class ProductService {
             Optional<Product> productOptional = this.productRepository.findById(ProductId);
             if (productOptional.isPresent()) {
                 Product product = productOptional.get();
+                // kiểm tra xem có sản phẩm nào bị trùng trong giỏ hàng không
+                CartDetail oldDetail = this.cartDetailRepository.findByCartAndProduct(cart, product);
+                // nếu chưa có sản phẩm này thì tạo mới và thêm vào giỏ hàng
+                if (oldDetail == null) {
+                    CartDetail cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setProduct(product);
+                    cartDetail.setPrice(product.getPrice());
+                    cartDetail.setQuantity(1);
+                    this.cartDetailRepository.save(cartDetail);
 
-                CartDetail cartDetail = new CartDetail();
-                cartDetail.setCart(cart);
-                cartDetail.setProduct(product);
-                cartDetail.setPrice(product.getPrice());
-                cartDetail.setQuantity(1);
-                this.cartDetailRepository.save(cartDetail);
+                    // update cart(sum)
+                    int s = cart.getSum() + 1;
+                    cart.setSum(s);
+
+                    this.cartRepository.save(cart);
+                    session.setAttribute("sum", s);
+
+                } // nếu có rồi thì tăng số lượng sản phẩm này lên và cập nhật
+                else {
+                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    this.cartDetailRepository.save(oldDetail);
+                }
             }
-
         }
+    }
+
+    // method tìm giỏ hàng theo user
+    public Cart fetchByUser(User user) {
+        return this.cartRepository.findByUser(user);
     }
 }

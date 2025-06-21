@@ -17,11 +17,13 @@ public class UploadService {
 
     }
 
+    // method lưu file
     public String HandleSaveUpLoadFile(MultipartFile file, String targetFolder) {
+        // kiểm tra file có rỗng không
         if (file == null || file.isEmpty()) {
             return "";
         }
-
+        // đường dẫn folder lưu file
         String rootPath = this.servletContext.getRealPath("/resources/images");
         String finalName = "";
         try {
@@ -33,8 +35,8 @@ public class UploadService {
             if (originalFilename != null) {
                 finalName = System.currentTimeMillis() + "-" + originalFilename.replace(" ", "_");
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
-
-                // ✅ Resize ảnh trước khi lưu (ví dụ 600x600)
+                // nén file để tối ưu hiệu năng laod của trang web
+                // Resize ảnh trước khi lưu (ví dụ 600x600)
                 Thumbnails.of(file.getInputStream())
                         .size(600, 600) // chỉnh lại nếu muốn ảnh lớn hơn
                         .outputQuality(0.8f) // nén ~80% chất lượng

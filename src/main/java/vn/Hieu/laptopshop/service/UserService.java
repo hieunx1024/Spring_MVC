@@ -20,14 +20,17 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
+    // method lưu user
     public User HandleSaveUser(User user) {
         return this.userRepository.save(user);
     }
 
+    // method lấy danh sách tất cả người dùng theo email
     public List<User> getAllUsersByEmail(String email) {
         return this.userRepository.findOneByEmail(email);
     }
 
+    // method lấy danh sách tất cả người dùng
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
     }
