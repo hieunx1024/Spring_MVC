@@ -15,6 +15,16 @@
                 <title>Dashboard - Product</title>
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/css/styles.css" rel="stylesheet" />
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const productImg = $("#productImg");
+                        productImg.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL).css({ display: "block" });
+                        });
+                    });
+                </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -98,8 +108,8 @@
                                                 </div>
 
                                                 <div class="col-12 mb-3">
-                                                    <img style="max-height: 250;display: none;" alt="product preview"
-                                                        id="productPreview" />
+                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
+                                                         id="avatarPreview" />
                                                 </div>
 
                                                 <div class="mb-5 col-12">

@@ -3,36 +3,61 @@ package vn.Hieu.laptopshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import vn.Hieu.laptopshop.domain.Order;
+import vn.Hieu.laptopshop.domain.OrderDetail;
+import vn.Hieu.laptopshop.domain.User;
+import vn.Hieu.laptopshop.repository.OrderDetailRepository;
 import vn.Hieu.laptopshop.repository.OrderRepository;
+
 
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(
+            OrderRepository orderRepository,
+            OrderDetailRepository orderDetailRepository) {
+        this.orderDetailRepository = orderDetailRepository;
         this.orderRepository = orderRepository;
     }
 
-    // method lưu đơn đặt hàng
-    public Order HandleSaveOrder(Order order) {
-        return this.orderRepository.save(order);
+    public Page<Order> fetchAllOrders(Pageable page) {
+        return this.orderRepository.findAll(page);
     }
 
-    // method lấy danh sách tất cả các đơn hàng
-    public List<Order> FetchAllOrder() {
-        return this.orderRepository.findAll();
-    }
-
-    // method tìm đơn hàng theo id
-    public Optional<Order> FetchOrderById(Long id) {
+    public Optional<Order> fetchOrderById(long id) {
         return this.orderRepository.findById(id);
     }
 
-    // method xóa đơn hàng
-    public void deleteOrder(Long id) {
+    public void deleteOrderById(long id) {
+        // delete order detail
+        Optional<Order> orderOptional = this.fetchOrderById(id);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            List<OrderDetail> orderDetails = order.getOrderDetails();
+            for (OrderDetail orderDetail : orderDetails) {
+                this.orderDetailRepository.deleteById(orderDetail.getId());
+            }
+        }
+
         this.orderRepository.deleteById(id);
     }
+
+    public void updateOrder(Order order) {
+        Optional<Order> orderOptional = this.fetchOrderById(order.getId());
+        if (orderOptional.isPresent()) {
+            Order currentOrder = orderOptional.get();
+            currentOrder.setStatus(order.getStatus());
+            this.orderRepository.save(currentOrder);
+        }
+    }
+
+    public List<Order> fetchOrderByUser(User user) {
+        return this.orderRepository.findByUser(user);
+    }
+
 }

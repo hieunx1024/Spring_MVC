@@ -87,7 +87,7 @@ Quản trị viên
 
 Email: admin@gmail.com
 
-Mật khẩu: admin123
+Mật khẩu: 123456
 
 
 

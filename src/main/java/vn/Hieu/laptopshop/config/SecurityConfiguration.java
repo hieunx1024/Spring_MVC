@@ -49,8 +49,8 @@ public class SecurityConfiguration {
    }
 
    @Bean
-   public AuthenticationSuccessHandler customSuccessHandler() {
-      return new CustomSuccessHandler();
+   public AuthenticationSuccessHandler customSuccessHandler( UserService userService) {
+      return new CustomSuccessHandler(userService);
    }
 
    @Bean
@@ -62,7 +62,7 @@ public class SecurityConfiguration {
    }
 
    @Bean
-   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+   public SecurityFilterChain filterChain(HttpSecurity http, UserService userService) throws Exception {
 
       http
             .authorizeHttpRequests(authorize -> authorize
@@ -84,7 +84,7 @@ public class SecurityConfiguration {
             .formLogin(formLogin -> formLogin
                   .loginPage("/login")
                   .failureUrl("/login?error")
-                  .successHandler(customSuccessHandler())
+                  .successHandler(customSuccessHandler(userService))
                   .permitAll())
             .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"));
 

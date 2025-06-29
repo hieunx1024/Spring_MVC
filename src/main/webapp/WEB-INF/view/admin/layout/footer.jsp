@@ -6,9 +6,8 @@
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; Nguyễn Xuân Hiếu 2025</div>
                         <div>
-                            <a href="https://hoidanit.vn/" target="_blank">Website</a>
-                            &middot;
-                            <a href="https://www.youtube.com/@hoidanit" target="_blank">Youtube channel</a>
+                            <a href="https://github.com/hieunx1024" target="_blank">Github</a>
+
                         </div>
                     </div>
                 </div>
