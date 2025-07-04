@@ -1,6 +1,7 @@
 package vn.Hieu.laptopshop.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -32,6 +33,16 @@ public class Order implements Serializable {
     private String receiverPhone;
 
     private String status;
+
+    private LocalDateTime createdDate;
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
 
     // user id
     @ManyToOne

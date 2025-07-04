@@ -18,11 +18,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
 
-    public OrderService(
-            OrderRepository orderRepository,
-            OrderDetailRepository orderDetailRepository) {
-        this.orderDetailRepository = orderDetailRepository;
+    public OrderService(OrderRepository orderRepository,
+                        OrderDetailRepository orderDetailRepository) {
         this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
     }
 
     public Page<Order> fetchAllOrders(Pageable page) {
@@ -34,7 +33,6 @@ public class OrderService {
     }
 
     public void deleteOrderById(long id) {
-        // delete order detail
         Optional<Order> orderOptional = this.fetchOrderById(id);
         if (orderOptional.isPresent()) {
             Order order = orderOptional.get();
@@ -43,7 +41,6 @@ public class OrderService {
                 this.orderDetailRepository.deleteById(orderDetail.getId());
             }
         }
-
         this.orderRepository.deleteById(id);
     }
 
@@ -60,4 +57,19 @@ public class OrderService {
         return this.orderRepository.findByUser(user);
     }
 
+    public double getRevenueByMonth(int month) {
+        Double result = orderRepository.sumRevenueByMonth(month);
+        return result != null ? result : 0.0;
+    }
+
+    public List<Order> fetchOrdersByIds(List<Long> orderIds) {
+        return orderRepository.findAllById(orderIds);  // Dùng phương thức này nếu bạn sử dụng Spring Data JPA
+    }
+
+    public List<Order> fetchAllOrders() {
+        return this.orderRepository.findAll();
+    }
+
 }
+
+

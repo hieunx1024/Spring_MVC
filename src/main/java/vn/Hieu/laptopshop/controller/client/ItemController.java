@@ -37,7 +37,7 @@ public class ItemController {
         HttpSession session = request.getSession(false);
         long productId = id;
         String email = (String) session.getAttribute("email");
-        this.productService.addProductToCart(email, productId, session);
+        this.productService.addProductToCart(email, productId, session, 1);
 
         return "redirect:/";
     }
@@ -118,7 +118,6 @@ public class ItemController {
         currentUser.setId(id);
 
         this.productService.handlePlaceOrder(currentUser, session, receiverName, receiverAddress, receiverPhone);
-
         return "redirect:/thanks";
     }
 
@@ -128,4 +127,15 @@ public class ItemController {
         return "client/cart/thanks";
     }
 
+    //Thêm giỏ hàng từ product-detail
+    @PostMapping("/add-product-from-view-detail")
+    public String handleAddProductFromViewDetail(
+            @RequestParam("id") long id,
+            @RequestParam("quantity") long quantity,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        this.productService.addProductToCart(email, id, session, quantity);
+        return "redirect:/product/" + id;
+    }
 }
