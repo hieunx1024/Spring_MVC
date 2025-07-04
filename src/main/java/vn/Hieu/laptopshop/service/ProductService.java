@@ -1,8 +1,11 @@
 package vn.Hieu.laptopshop.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +52,7 @@ public class ProductService {
     }
 
     // method thêm sản phẩm vào giỏ hàng
-    public void addProductToCart(String email, long ProductId, HttpSession session) {
+    public void addProductToCart(String email, long ProductId, HttpSession session, long quantity) {
         User user = this.userService.getUserByEmail(email);
         // check user có cart chưa ? Nếu chưa có thì tạo mới
         if (user != null) {
@@ -75,19 +78,18 @@ public class ProductService {
                     cartDetail.setCart(cart);
                     cartDetail.setProduct(product);
                     cartDetail.setPrice(product.getPrice());
-                    cartDetail.setQuantity(1);
+                    cartDetail.setQuantity(quantity);
                     this.cartDetailRepository.save(cartDetail);
 
                     // update cart(sum)
-                    int s = cart.getSum() + 1;
+                 int s = cart.getSum() + 1;
                     cart.setSum(s);
-
                     this.cartRepository.save(cart);
                     session.setAttribute("sum", s);
 
                 } // nếu có rồi thì tăng số lượng sản phẩm này lên và cập nhật
                 else {
-                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
                     this.cartDetailRepository.save(oldDetail);
                 }
             }
@@ -149,6 +151,7 @@ public class ProductService {
                 order.setReceiverAddress(receiverAddress);
                 order.setReceiverPhone(receiverPhone);
                 order.setStatus("PENDING");
+                order.setCreatedDate(LocalDateTime.now());
 
                 double sum = 0;
                 for (CartDetail cd : cartDetails) {
@@ -182,4 +185,6 @@ public class ProductService {
         }
 
     }
+
+
 }

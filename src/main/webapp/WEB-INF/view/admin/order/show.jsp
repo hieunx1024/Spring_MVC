@@ -44,6 +44,7 @@
                                                         <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
+                                                        <th>Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -64,6 +65,7 @@
                                                                 <a href="/admin/order/delete/${order.id}"
                                                                     class="btn btn-danger">Delete</a>
                                                             </td>
+                                                            <td>${order.createdDate}</td>
                                                         </tr>
 
                                                     </c:forEach>
