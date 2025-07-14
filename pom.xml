@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.2</version>
 		<relativePath/>
-		<!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>vn.Hieu</groupId>
 	<artifactId>laptopshop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>laptopshop</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>21</java.version>
 	</properties>
-	<dependencies>
 
+	<dependencies>
+		<!-- Spring Boot starters -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.15</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<dependency>
@@ -54,21 +63,16 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<dependency> 
-			<groupId>org.springframework.boot</groupId> 
-			<artifactId>spring-boot-starter-validation</artifactId> 
-	</dependency>
-
-
+		<!-- DB & JPA -->
 		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>8.0.1.Final</version>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>6.4.1.Final</version>
+			<scope>provided</scope>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -76,8 +80,16 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.1.Final</version>
+		</dependency>
+
+		<!-- Others -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.15</version>
 		</dependency>
 
 		<dependency>
@@ -95,11 +107,10 @@
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
 
-
-		 <dependency>
+		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-jdbc</artifactId>
-  		</dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>net.coobird</groupId>
@@ -107,41 +118,55 @@
 			<version>0.4.20</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>5.2.3</version>  <!-- Thay phiên bản theo yêu cầu của bạn -->
+			<version>5.2.3</version>
 		</dependency>
 
-		<!-- Apache POI OOXML (làm việc với file .xlsx) -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.3</version>  <!-- Thay phiên bản theo yêu cầu của bạn -->
+			<version>5.2.3</version>
 		</dependency>
 
-		<!-- Apache POI OOXML-Schemas (xử lý XML trong file .xlsx) -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>4.1.2</version>  <!-- Thay phiên bản theo yêu cầu của bạn -->
+			<version>4.1.2</version>
 		</dependency>
 
-		<!-- Apache Commons Collections (đôi khi cần cho POI) -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 			<version>4.4</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Spring Boot Plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Bắt buộc để kích hoạt Annotation Processor -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.hibernate.orm</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>6.4.1.Final</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
