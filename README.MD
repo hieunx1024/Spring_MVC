@@ -56,7 +56,7 @@ Import file laptop_store.sql trong thư mục /database vào MySQL để tạo b
 
 Chỉnh sửa trong src/main/webapp/WEB-INF/applicationContext.xml (hoặc hibernate.cfg.xml):
 
-<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/laptop_store</property>
+<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/laptopshop</property>
 <property name="hibernate.connection.username">root</property>
 <property name="hibernate.connection.password">your_password</property>
 
@@ -68,7 +68,7 @@ Build Maven: mvn clean install
 
 Chạy trên Tomcat Server
 
-Truy cập: http://localhost:8080/laptop-store
+Truy cập: http://localhost:8080/
 
 
 
@@ -111,7 +111,7 @@ Trang chủ	Quản trị sản phẩm	Đơn hàng
 
 Đảm bảo Java và MySQL đang chạy đúng cổng
 
-Chạy Tomcat đúng context /laptop-store
+Chạy Tomcat đúng context /
 
 Không lưu mật khẩu người dùng ở dạng plain-text (nếu triển khai thực tế)
 
