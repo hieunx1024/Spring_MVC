@@ -37,51 +37,50 @@
                                     <div>Product</div>
                                     <div class=" mt-5">
                                         <div class="row">
-                                            <div class="col-md-6 col-12 mx-auto">
-                                                <h3>Table Product</h3>
-                                                <a href="/admin/product/create" class="btn btn-primary mb-3">Tạo sản
-                                                    phẩm
-                                                    mới</a>
-                                                <hr>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Name</th>
-                                                            <th>Price</th>
-                                                            <th>Unit</th>
-                                                            <th>Factory</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <c:forEach var="product" items="${products}">
+                                            <div class="col-12 mx-auto">
+                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                    <h3 class="m-0 text-dark fw-bold">Danh sách Sản phẩm</h3>
+                                                    <a href="/admin/product/create" class="btn btn-primary px-4 py-2 fw-semibold shadow-sm">
+                                                        <i class="fas fa-plus me-2"></i>Tạo sản phẩm mới
+                                                    </a>
+                                                </div>
+                                                
+                                                <div class="table-responsive bg-white rounded-4 shadow-sm p-4">
+                                                    <table class="table table-hover align-middle mb-0">
+                                                        <thead class="bg-light">
                                                             <tr>
-                                                                <th>${product.id}</th>
-                                                                <td>${product.name}</td>
-                                                                <td>
-                                                                    <fmt:formatNumber value="${product.price}"
-                                                                        type="number" groupingUsed="true" />
-                                                                </td>
-                                                                <td>VND</td>
-                                                                <td>${product.factory}</td>
-                                                                <td>
-                                                                    <a href="/admin/product/view/${product.id}"
-                                                                        class="btn btn-success">Xem</a>
-                                                                    <a href="/admin/product/update/${product.id}"
-                                                                        class="btn btn-warning" mx-2>Sửa</a>
-                                                                    <a href="/admin/product/delete/${product.id}"
-                                                                        class="btn btn-danger">Xóa</a>
-                                                                </td>
+                                                                <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">ID</th>
+                                                                <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Name</th>
+                                                                <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Price</th>
+                                                                <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Unit</th>
+                                                                <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Factory</th>
+                                                                <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Action</th>
                                                             </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table>
-
-
-
-
-
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach var="product" items="${products}">
+                                                                <tr>
+                                                                    <th class="text-secondary">${product.id}</th>
+                                                                    <td class="fw-medium text-dark">${product.name}</td>
+                                                                    <td>
+                                                                        <span class="badge bg-light text-dark border px-3 py-2">
+                                                                            <fmt:formatNumber value="${product.price}" type="number" groupingUsed="true" />
+                                                                        </span>
+                                                                    </td>
+                                                                    <td class="text-secondary">VND</td>
+                                                                    <td class="text-secondary">${product.factory}</td>
+                                                                    <td>
+                                                                        <div class="d-flex justify-content-center gap-2">
+                                                                            <a href="/admin/product/view/${product.id}" class="btn btn-info btn-sm text-white px-3"><i class="fas fa-eye"></i> Xem</a>
+                                                                            <a href="/admin/product/update/${product.id}" class="btn btn-warning btn-sm text-white px-3"><i class="fas fa-edit"></i> Sửa</a>
+                                                                            <a href="/admin/product/delete/${product.id}" class="btn btn-danger btn-sm text-white px-3"><i class="fas fa-trash"></i> Xóa</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

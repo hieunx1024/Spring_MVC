@@ -31,47 +31,61 @@
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-12 mx-auto">
-                                            <div class="d-flex">
-                                                <h3>Table Orders</h3>
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h3 class="m-0 text-dark fw-bold">Manage Orders</h3>
                                             </div>
-
-                                            <hr />
-                                            <table class=" table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Total Price</th>
-                                                        <th>User</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                        <th>Date</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach var="order" items="${orders}">
+                                            
+                                            <div class="table-responsive bg-white rounded-4 shadow-sm p-4">
+                                                <table class="table table-hover align-middle mb-0">
+                                                    <thead class="bg-light">
                                                         <tr>
-                                                            <th>${order.id}</th>
-                                                            <td>
-                                                                <fmt:formatNumber type="number"
-                                                                    value="${order.totalPrice}" /> đ
-                                                            </td>
-                                                            <td>${order.user.fullName}</td>
-                                                            <td>${order.status}</td>
-                                                            <td>
-                                                                <a href="/admin/order/view/${order.id}"
-                                                                    class="btn btn-success">View</a>
-                                                                <a href="/admin/order/update/${order.id}"
-                                                                    class="btn btn-warning  mx-2">Update</a>
-                                                                <a href="/admin/order/delete/${order.id}"
-                                                                    class="btn btn-danger">Delete</a>
-                                                            </td>
-                                                            <td>${order.createdDate}</td>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">ID</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Total Price</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">User</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Status</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Action</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Date</th>
                                                         </tr>
-
-                                                    </c:forEach>
-
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach var="order" items="${orders}">
+                                                            <tr>
+                                                                <th class="text-secondary">${order.id}</th>
+                                                                <td>
+                                                                    <span class="badge bg-light text-dark border px-3 py-2">
+                                                                        <fmt:formatNumber type="number" value="${order.totalPrice}" /> VND
+                                                                    </span>
+                                                                </td>
+                                                                <td class="fw-medium text-dark">${order.user.fullName}</td>
+                                                                <td>
+                                                                    <c:choose>
+                                                                        <c:when test="${order.status eq 'PENDING'}">
+                                                                            <span class="badge bg-warning text-dark px-3 py-2">PENDING</span>
+                                                                        </c:when>
+                                                                        <c:when test="${order.status eq 'SHIPPING'}">
+                                                                            <span class="badge bg-info px-3 py-2">SHIPPING</span>
+                                                                        </c:when>
+                                                                        <c:when test="${order.status eq 'COMPLETE'}">
+                                                                            <span class="badge bg-success px-3 py-2">COMPLETE</span>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <span class="badge bg-secondary px-3 py-2">${order.status}</span>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-center gap-2">
+                                                                        <a href="/admin/order/view/${order.id}" class="btn btn-info btn-sm text-white px-3"><i class="fas fa-eye"></i> View</a>
+                                                                        <a href="/admin/order/update/${order.id}" class="btn btn-warning btn-sm text-white px-3"><i class="fas fa-edit"></i> Update</a>
+                                                                        <a href="/admin/order/delete/${order.id}" class="btn btn-danger btn-sm text-white px-3"><i class="fas fa-trash"></i> Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-secondary">${order.formattedDate}</td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <nav aria-label="Page navigation example">
                                                 <ul class="pagination justify-content-center">
                                                     <li class="page-item">

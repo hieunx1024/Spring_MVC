@@ -84,7 +84,7 @@
                     <tr>
                         <th scope="row">
                             <div class="d-flex align-items-center">
-                                <img src="/images/product/${cartDetail.product.image}"
+                                <img src="${cartDetail.product.image.startsWith('http') ? cartDetail.product.image : '/images/product/'' += cartDetail.product.image}"
                                      class="img-fluid me-5 rounded-circle"
                                      style="width: 80px; height: 80px;" alt="">
                             </div>
@@ -120,6 +120,11 @@
                 </tbody>
             </table>
         </div>
+        <c:if test="${param.payment_error != null}">
+            <div class="alert alert-danger my-3">
+                Thanh toán qua VNPAY thất bại hoặc đã bị huỷ! Vui lòng chọn phương thức khác hoặc thử lại.
+            </div>
+        </c:if>
         <c:if test="${not empty cartDetails}">
             <form:form action="/place-order" method="post" modelAttribute="cart">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -161,10 +166,13 @@
                                         <p class="mb-0">0 đ</p>
                                     </div>
                                 </div>
-                                <div class="mt-3 d-flex justify-content-between">
+                                <div class="mt-3 d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0 me-4">Hình thức</h5>
                                     <div class="">
-                                        <p class="mb-0">Thanh toán khi nhận hàng (COD)</p>
+                                        <select class="form-select" name="paymentMethod">
+                                            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                                            <option value="VNPAY">Thanh toán qua VNPAY</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

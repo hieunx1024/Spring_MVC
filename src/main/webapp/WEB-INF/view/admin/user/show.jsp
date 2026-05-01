@@ -32,39 +32,44 @@
 
                                 <div class="mt-4">
                                     <div class="row">
-                                        <div class="mx-auto">
-                                            <h3>Danh sách người dùng</h3>
-                                            <a href="/admin/user/create" class="btn btn-primary mb-3">Tạo người dùng
-                                                mới</a>
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Email</th>
-                                                        <th>Họ tên</th>
-                                                        <th>Role</th>
-                                                        <th>Thao tác</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach var="user" items="${users}">
+                                        <div class="col-12 mx-auto">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h3 class="m-0 text-dark fw-bold">Danh sách người dùng</h3>
+                                                <a href="/admin/user/create" class="btn btn-primary px-4 py-2 fw-semibold shadow-sm">
+                                                    <i class="fas fa-plus me-2"></i>Tạo người dùng mới
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="table-responsive bg-white rounded-4 shadow-sm p-4">
+                                                <table class="table table-hover align-middle mb-0">
+                                                    <thead class="bg-light">
                                                         <tr>
-                                                            <td>${user.id}</td>
-                                                            <td>${user.email}</td>
-                                                            <td>${user.fullName}</td>
-                                                            <td>${user.role.name}</td>
-                                                            <td>
-                                                                <a href="/admin/user/view/${user.id}"
-                                                                    class="btn btn-success btn-sm">Xem</a>
-                                                                <a href="/admin/user/update/${user.id}"
-                                                                    class="btn btn-warning btn-sm">Sửa</a>
-                                                                <a href="/admin/user/delete/${user.id}"
-                                                                    class="btn btn-danger btn-sm">Xóa</a>
-                                                            </td>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">ID</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Email</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Họ tên</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Role</th>
+                                                            <th class="border-bottom-0 text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Thao tác</th>
                                                         </tr>
-                                                    </c:forEach>
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach var="user" items="${users}">
+                                                            <tr>
+                                                                <th class="text-secondary">${user.id}</th>
+                                                                <td class="text-dark fw-medium">${user.email}</td>
+                                                                <td class="text-dark">${user.fullName}</td>
+                                                                <td><span class="badge bg-secondary px-3 py-2">${user.role.name}</span></td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-center gap-2">
+                                                                        <a href="/admin/user/view/${user.id}" class="btn btn-info btn-sm text-white px-3"><i class="fas fa-eye"></i> Xem</a>
+                                                                        <a href="/admin/user/update/${user.id}" class="btn btn-warning btn-sm text-white px-3"><i class="fas fa-edit"></i> Sửa</a>
+                                                                        <a href="/admin/user/delete/${user.id}" class="btn btn-danger btn-sm text-white px-3"><i class="fas fa-trash"></i> Xóa</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

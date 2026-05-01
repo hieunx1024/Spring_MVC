@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.servlet.http.HttpSession;
 import vn.Hieu.laptopshop.domain.*;
@@ -16,6 +17,7 @@ import vn.Hieu.laptopshop.repository.*;
 import vn.Hieu.laptopshop.service.specification.ProductSpecs;
 
 @Service
+@Transactional
 public class ProductService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
@@ -57,16 +59,16 @@ public class ProductService {
 
         Specification<Product> combinedSpec = Specification.where(null);
 
-        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent() && !productCriteriaDTO.getTarget().get().isEmpty()) {
             Specification<Product> currentSpecs = ProductSpecs.matchListTarget(productCriteriaDTO.getTarget().get());
             combinedSpec = combinedSpec.and(currentSpecs);
         }
-        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent() && !productCriteriaDTO.getFactory().get().isEmpty()) {
             Specification<Product> currentSpecs = ProductSpecs.matchListFactory(productCriteriaDTO.getFactory().get());
             combinedSpec = combinedSpec.and(currentSpecs);
         }
 
-        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent() && !productCriteriaDTO.getPrice().get().isEmpty()) {
             Specification<Product> currentSpecs = this.buildPriceSpecification(productCriteriaDTO.getPrice().get());
             combinedSpec = combinedSpec.and(currentSpecs);
         }
@@ -131,7 +133,7 @@ public class ProductService {
                 Cart otheCart = new Cart();
                 otheCart.setUser(user);
                 otheCart.setSum(0);
-                this.cartRepository.save(otheCart);
+                cart = this.cartRepository.save(otheCart);
             }
             // save cartDetail
 
@@ -241,15 +243,8 @@ public class ProductService {
                     this.orderDetailRepository.save(orderDetail);
                 }
 
-                // step 2: delete cart_detail and cart
-                for (CartDetail cd : cartDetails) {
-                    this.cartDetailRepository.deleteById(cd.getId());
-                }
-
-                this.cartRepository.deleteById(cart.getId());
-
-                // step 3 : update session
-                session.setAttribute("sum", 0);
+                // Do not delete cart and cartDetails to allow users to buy again
+                // session 'sum' remains unchanged
             }
         }
 

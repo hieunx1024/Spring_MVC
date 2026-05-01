@@ -89,43 +89,30 @@
                                         <div class="col-lg-12">
                                             <div class="row g-4">
                                                 <c:forEach var="product" items="${products}">
-                                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                                        <div class="rounded position-relative fruite-item">
-                                                            <div class="fruite-img">
-                                                                <img src="/images/product/${product.image}"
-                                                                    loading="lazy" class="img-fluid w-100 rounded-top"
-                                                                    style="width: 200px; height: 200px; object-fit: cover; display: block; margin: 0 auto;"
-                                                                    alt="">
+                                                    <div class="col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
+                                                        <div class="rounded position-relative product-card w-100 d-flex flex-column shadow-sm transition-hover">
+                                                            <div class="card-img-wrapper rounded-top bg-light p-3 d-flex align-items-center justify-content-center" style="height: 220px;">
+                                                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'' += product.image}"
+                                                                    loading="lazy" class="img-fluid"
+                                                                    style="max-height: 100%; max-width: 100%; object-fit: contain;"
+                                                                    alt="${product.name}">
                                                             </div>
-                                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                                style="top: 10px; left: 10px;">Laptop</div>
-                                                            <div
-                                                                class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                                <h4 style="font-size: 15px;">
-                                                                    <a href="/product/${product.id}">
-                                                                        ${product.name}
-                                                                    </a>
-
-                                                                </h4>
-                                                                <p style="font-size: 13px;">${product.shortDesc}</p>
-                                                                <div
-                                                                    class="d-flex  flex-lg-wrap justify-content-center flex-column">
-                                                                    <p style="font-size: 15px; text-align: center; width: 100%;"
-                                                                        class="text-dark  fw-bold mb-3">
-                                                                        <fmt:formatNumber type="number"
-                                                                            value="${product.price}" /> VND
+                                                            <div class="text-white bg-danger px-3 py-1 rounded position-absolute shadow-sm"
+                                                                style="top: 10px; left: 10px; font-size: 0.8rem; font-weight: 600;">HOT</div>
+                                                            <div class="p-4 d-flex flex-column flex-grow-1 border border-top-0 rounded-bottom bg-white">
+                                                                <a href="/product/${product.id}" class="product-title mb-2 fw-bold text-dark text-decoration-none" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8rem;">
+                                                                    ${product.name}
+                                                                </a>
+                                                                <p class="text-muted mb-3" style="font-size: 0.85rem; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${product.shortDesc}</p>
+                                                                <div class="mt-auto pt-3 border-top">
+                                                                    <p class="product-price mb-3 text-center text-primary fs-5 fw-bold">
+                                                                        <fmt:formatNumber type="number" value="${product.price}" /> ₫
                                                                     </p>
-                                                                    <form action="/add-product-to-cart/${product.id}"
-                                                                        method="POST">
-                                                                        <input type="hidden"
-                                                                            name="${_csrf.parameterName}"
-                                                                            value="${_csrf.token}" />
-
+                                                                    <form action="/add-product-to-cart/${product.id}" method="POST" class="m-0">
+                                                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                                                         <button data-product-id="${product.id}"
-                                                                            class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
-                                                                            <i
-                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                            Add to cart
+                                                                            class="btnAddToCartHomepage w-100 btn btn-outline-primary rounded-pill fw-bold py-2 custom-hover-btn">
+                                                                            <i class="fa fa-shopping-cart me-2"></i> Thêm vào giỏ
                                                                         </button>
                                                                     </form>
                                                                 </div>

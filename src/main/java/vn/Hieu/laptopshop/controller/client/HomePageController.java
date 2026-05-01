@@ -41,7 +41,10 @@ public class HomePageController {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, HttpServletRequest request) {
+        if (request.isUserInRole("ADMIN") || request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
         Pageable pageable = PageRequest.of(0, 8);
         Page<Product> prs = this.productService.getAllProducts(pageable);
         List<Product> products = prs.getContent();

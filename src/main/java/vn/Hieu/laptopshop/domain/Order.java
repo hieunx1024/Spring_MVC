@@ -44,6 +44,12 @@ public class Order implements Serializable {
         this.createdDate = createdDate;
     }
 
+    public String getFormattedDate() {
+        if (this.createdDate == null) return "";
+        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return this.createdDate.format(formatter);
+    }
+
     // user id
     @ManyToOne
     @JoinColumn(name = "user_id")

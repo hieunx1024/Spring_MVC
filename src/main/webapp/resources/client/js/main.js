@@ -230,15 +230,15 @@
         searchParams.delete('price');
 
         if (factoryArr.length > 0) {
-            searchParams.set('factory', factoryArr.join(','));
+            factoryArr.forEach(val => searchParams.append('factory', val));
         }
 
         if (targetArr.length > 0) {
-            searchParams.set('target', targetArr.join(','));
+            targetArr.forEach(val => searchParams.append('target', val));
         }
 
         if (priceArr.length > 0) {
-            searchParams.set('price', priceArr.join(','));
+            priceArr.forEach(val => searchParams.append('price', val));
         }
 
         // Update the URL and reload the page

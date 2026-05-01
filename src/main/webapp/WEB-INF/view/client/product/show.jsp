@@ -76,24 +76,24 @@
                                                 <div class="mb-2"><b>Hãng sản xuất</b></div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="factory-1"
-                                                        value="APPLE">
+                                                        value="Apple">
                                                     <label class="form-check-label" for="factory-1">Apple</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="factory-2"
-                                                        value="ASUS">
+                                                        value="Asus">
                                                     <label class="form-check-label" for="factory-2">Asus</label>
                                                 </div>
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="factory-3"
-                                                        value="LENOVO">
+                                                        value="Lenovo">
                                                     <label class="form-check-label" for="factory-3">Lenovo</label>
                                                 </div>
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="factory-4"
-                                                        value="DELL">
+                                                        value="Dell">
                                                     <label class="form-check-label" for="factory-4">Dell</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -103,7 +103,7 @@
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="factory-6"
-                                                        value="ACER">
+                                                        value="Acer">
                                                     <label class="form-check-label" for="factory-6">Acer</label>
                                                 </div>
 
@@ -112,30 +112,30 @@
                                                 <div class="mb-2"><b>Mục đích sử dụng</b></div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="target-1"
-                                                        value="GAMING">
+                                                        value="Gaming">
                                                     <label class="form-check-label" for="target-1">Gaming</label>
                                                 </div>
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="target-2"
-                                                        value="SINHVIEN-VANPHONG">
+                                                        value="Sinh viên - Văn phòng">
                                                     <label class="form-check-label" for="target-2">Sinh viên - văn
                                                         phòng</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="target-3"
-                                                        value="THIET-KE-DO-HOA">
+                                                        value="Đồ họa - Kỹ thuật">
                                                     <label class="form-check-label" for="target-3">Thiết kế đồ
                                                         họa</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="target-4"
-                                                        value="MONG-NHE">
+                                                        value="Mỏng nhẹ">
                                                     <label class="form-check-label" for="target-4">Mỏng nhẹ</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="target-5"
-                                                        value="DOANH-NHAN">
+                                                        value="Doanh nhân">
                                                     <label class="form-check-label" for="target-5">Doanh nhân</label>
                                                 </div>
 
@@ -208,46 +208,34 @@
                                             </c:if>
                                             <c:forEach var="product" items="${products}">
                                                 <div class="col-md-6 col-lg-4">
-                                                    <div class="rounded position-relative fruite-item">
-                                                        <div class="fruite-img">
-                                                            <img src="/images/product/${product.image}"
-                                                                class="img-fluid w-100 rounded-top" alt="">
-                                                        </div>
-                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                            style="top: 10px; left: 10px;">Laptop
-                                                        </div>
-                                                        <div
-                                                            class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                            <h4 style="font-size: 15px;">
-                                                                <a href="/product/${product.id}">
+                                                        <div class="rounded position-relative product-card h-100 d-flex flex-column">
+                                                            <div class="card-img-wrapper rounded-top">
+                                                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'' += product.image}"
+                                                                    loading="lazy" class="img-fluid w-100"
+                                                                    style="height: 180px; object-fit: contain;"
+                                                                    alt="">
+                                                            </div>
+                                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute shadow-sm"
+                                                                style="top: 10px; left: 10px; font-size: 0.8rem; font-weight: 600;">Mới</div>
+                                                            <div class="p-4 d-flex flex-column flex-grow-1 border border-top-0 rounded-bottom">
+                                                                <a href="/product/${product.id}" class="product-title mb-2">
                                                                     ${product.name}
                                                                 </a>
-
-                                                            </h4>
-                                                            <p style="font-size: 13px;">
-                                                                ${product.shortDesc}</p>
-                                                            <div
-                                                                class="d-flex  flex-lg-wrap justify-content-center flex-column">
-                                                                <p style="font-size: 15px; text-align: center; width: 100%;"
-                                                                    class="text-dark  fw-bold mb-3">
-                                                                    <fmt:formatNumber type="number"
-                                                                        value="${product.price}" />
-                                                                    đ
-                                                                </p>
-                                                                <form action="/add-product-to-cart/${product.id}"
-                                                                    method="post">
-                                                                    <input type="hidden" name="${_csrf.parameterName}"
-                                                                        value="${_csrf.token}" />
-
-                                                                    <button
-                                                                        class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to cart
-                                                                    </button>
-                                                                </form>
+                                                                <p class="text-muted mb-3" style="font-size: 0.85rem; flex-grow: 1;">${product.shortDesc}</p>
+                                                                <div class="mt-auto">
+                                                                    <p class="product-price mb-3 text-center">
+                                                                        <fmt:formatNumber type="number" value="${product.price}" /> ₫
+                                                                    </p>
+                                                                    <form action="/add-product-to-cart/${product.id}" method="POST" class="m-0">
+                                                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                                        <button data-product-id="${product.id}"
+                                                                            class="btnAddToCartHomepage w-100 btn btn-primary rounded-pill text-white fw-bold py-2 shadow-sm">
+                                                                            <i class="fa fa-shopping-cart me-2"></i> Thêm vào giỏ
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </c:forEach>
 

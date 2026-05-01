@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
     <div class="carousel-inner" role="listbox" style="height: 400px;">
         <div class="carousel-item active rounded">

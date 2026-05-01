@@ -61,6 +61,37 @@
                     }
                 }
             });
+            var factoryCtx = document.getElementById("factoryPieChart").getContext('2d');
+            new Chart(factoryCtx, {
+                type: 'pie',
+                data: {
+                    labels: ${factoryLabels != null ? factoryLabels : '[]'},
+                    datasets: [{
+                        data: ${factoryValues != null ? factoryValues : '[]'},
+                        backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#17a2b8', '#6c757d', '#343a40', '#f8f9fa', '#e83e8c', '#fd7e14']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            var targetCtx = document.getElementById("targetPieChart").getContext('2d');
+            new Chart(targetCtx, {
+                type: 'pie',
+                data: {
+                    labels: ${targetLabels != null ? targetLabels : '[]'},
+                    datasets: [{
+                        data: ${targetValues != null ? targetValues : '[]'},
+                        backgroundColor: ['#28a745', '#dc3545', '#ffc107', '#007bff', '#17a2b8', '#6c757d', '#343a40', '#f8f9fa', '#e83e8c', '#fd7e14']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
         });
     </script>
 
@@ -115,6 +146,31 @@
                     </div>
                     <div class="card-body">
                         <canvas id="salesChart" width="100%" height="300"></canvas>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-pie me-1"></i>
+                                Tỷ trọng bán ra theo Hãng
+                            </div>
+                            <div class="card-body">
+                                <canvas id="factoryPieChart" width="100%" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-pie me-1"></i>
+                                Tỷ trọng bán ra theo Mục đích
+                            </div>
+                            <div class="card-body">
+                                <canvas id="targetPieChart" width="100%" height="250"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -66,14 +66,14 @@ public class SecurityConfiguration {
    userService) throws Exception {
 
    http
+   .csrf(csrf -> csrf.ignoringRequestMatchers("/api/chat"))
    .authorizeHttpRequests(authorize -> authorize
    .dispatcherTypeMatchers(DispatcherType.FORWARD,
    DispatcherType.INCLUDE).permitAll()
-   .requestMatchers("/", "/login", "/product/**", "/client/**", "/css/**",
-   "/js/**", "/images/**","/chat",
-   "/admin")
+   .requestMatchers("/", "/login", "/register", "/product/**", "/client/**", "/css/**",
+   "/js/**", "/images/**","/chat", "/api/chat", "/vnpay-return")
    .permitAll()
-   .requestMatchers("/admin/**").hasRole("ADMIN")
+   .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
    .anyRequest().authenticated())
    .sessionManagement((sessionManagement) -> sessionManagement
    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)

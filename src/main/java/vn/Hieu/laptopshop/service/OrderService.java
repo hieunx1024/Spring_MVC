@@ -70,6 +70,13 @@ public class OrderService {
         return this.orderRepository.findAll();
     }
 
+    public List<Object[]> getSoldProductsByFactory() {
+        return this.orderDetailRepository.countSoldProductsByFactory();
+    }
+
+    public List<Object[]> getSoldProductsByTarget() {
+        return this.orderDetailRepository.countSoldProductsByTarget();
+    }
 }
 
 
