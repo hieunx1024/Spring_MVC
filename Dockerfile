@@ -10,4 +10,6 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/*.war app.war
 EXPOSE 8080
-ENTRYPOINT ["java", "-Xmx300m", "-Xss512k", "-jar", "app.war"]
+# Sửa dòng ENTRYPOINT trong Dockerfile của bạn:
+ENTRYPOINT ["java", "-Xmx300m", "-Xss512k", "-XX:+TieredCompilation", "-XX:TieredStopAtLevel=1", "-jar", "app.war"]
+
