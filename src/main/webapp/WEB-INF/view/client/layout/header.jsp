@@ -32,7 +32,7 @@
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <c:choose>
                                             <c:when test="${not empty sessionScope.avatar and sessionScope.avatar != ''}">
-                                                <img src="${sessionScope.avatar.startsWith('http') ? sessionScope.avatar : '/images/avatar/'' += sessionScope.avatar}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover; border: 2px solid var(--bs-primary);" alt="Avatar">
+                                                <img src="${sessionScope.avatar.startsWith('http') ? sessionScope.avatar : '/images/avatar/'.concat(sessionScope.avatar)}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover; border: 2px solid var(--bs-primary);" alt="Avatar">
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="rounded-circle bg-light shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border: 2px solid var(--bs-primary);">
@@ -47,7 +47,7 @@
                                         <li class="d-flex align-items-center flex-column p-4 bg-light" style="border-radius: 12px 12px 0 0;">
                                             <c:choose>
                                                 <c:when test="${not empty sessionScope.avatar and sessionScope.avatar != ''}">
-                                                    <img src="${sessionScope.avatar.startsWith('http') ? sessionScope.avatar : '/images/avatar/'' += sessionScope.avatar}" class="rounded-circle shadow" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid white;" alt="Avatar">
+                                                    <img src="${sessionScope.avatar.startsWith('http') ? sessionScope.avatar : '/images/avatar/'.concat(sessionScope.avatar)}" class="rounded-circle shadow" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid white;" alt="Avatar">
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; border: 3px solid white;">

@@ -29,7 +29,7 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
                     <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
-                         src="${sessionScope.avatar.startsWith('http') ? sessionScope.avatar : '/images/avatar/'' += sessionScope.avatar}"/>
+                         src="${sessionScope.avatar.startsWith('http') ? sessionScope.avatar : '/images/avatar/'.concat(sessionScope.avatar)}"/>
                     <div class="text-center my-3">
                         <c:out value="${sessionScope.fullName}"/>
                     </div>

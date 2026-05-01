@@ -95,7 +95,7 @@
                         <tr>
                             <th scope="row">
                                 <div class="d-flex align-items-center">
-                                    <img src="${orderDetail.product.image.startsWith('http') ? orderDetail.product.image : '/images/product/'' += orderDetail.product.image}"
+                                    <img src="${orderDetail.product.image.startsWith('http') ? orderDetail.product.image : '/images/product/'.concat(orderDetail.product.image)}"
                                          class="img-fluid me-5 rounded-circle"
                                          style="width: 80px; height: 80px;" alt="">
                                 </div>

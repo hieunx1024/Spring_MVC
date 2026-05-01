@@ -84,7 +84,7 @@
                     <tr>
                         <th scope="row">
                             <div class="d-flex align-items-center">
-                                <img src="${cartDetail.product.image.startsWith('http') ? cartDetail.product.image : '/images/product/'' += cartDetail.product.image}"
+                                <img src="${cartDetail.product.image.startsWith('http') ? cartDetail.product.image : '/images/product/'.concat(cartDetail.product.image)}"
                                      class="img-fluid me-5 rounded-circle"
                                      style="width: 80px; height: 80px;" alt="">
                             </div>

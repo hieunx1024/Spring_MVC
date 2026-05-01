@@ -210,7 +210,7 @@
                                                 <div class="col-md-6 col-lg-4">
                                                         <div class="rounded position-relative product-card h-100 d-flex flex-column">
                                                             <div class="card-img-wrapper rounded-top">
-                                                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'' += product.image}"
+                                                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'.concat(product.image)}"
                                                                     loading="lazy" class="img-fluid w-100"
                                                                     style="height: 180px; object-fit: contain;"
                                                                     alt="">

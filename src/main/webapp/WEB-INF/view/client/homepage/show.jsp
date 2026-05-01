@@ -92,7 +92,7 @@
                                                     <div class="col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
                                                         <div class="rounded position-relative product-card w-100 d-flex flex-column shadow-sm transition-hover">
                                                             <div class="card-img-wrapper rounded-top bg-light p-3 d-flex align-items-center justify-content-center" style="height: 220px;">
-                                                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'' += product.image}"
+                                                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'.concat(product.image)}"
                                                                     loading="lazy" class="img-fluid"
                                                                     style="max-height: 100%; max-width: 100%; object-fit: contain;"
                                                                     alt="${product.name}">

@@ -40,7 +40,7 @@
                             <h3 class="text-center mb-4">Product Detail</h3>
 
                             <div class="card shadow">
-                                <img class="card-img-top" src="${product.image.startsWith('http') ? product.image : '/images/product/'' += product.image}" alt="Product image">
+                                <img class="card-img-top" src="${product.image.startsWith('http') ? product.image : '/images/product/'.concat(product.image)}" alt="Product image">
 
                                 <div class="card-body">
                                     <h5 class="card-title">${product.name}</h5>

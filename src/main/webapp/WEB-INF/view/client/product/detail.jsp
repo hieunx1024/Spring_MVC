@@ -74,7 +74,7 @@
                     <div class="col-lg-6">
                         <div class="border rounded">
                             <a href="#">
-                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'' += product.image}"
+                                <img src="${product.image.startsWith('http') ? product.image : '/images/product/'.concat(product.image)}"
                                      class="img-fluid rounded" alt="Image">
                             </a>
                         </div>

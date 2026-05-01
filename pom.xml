@@ -15,6 +15,7 @@
 	<groupId>vn.Hieu</groupId>
 	<artifactId>laptopshop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>laptopshop</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -151,7 +152,6 @@
 
 	<build>
 		<plugins>
-			<!-- Spring Boot Plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
